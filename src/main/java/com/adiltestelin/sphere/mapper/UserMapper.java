@@ -2,14 +2,17 @@ package com.adiltestelin.sphere.mapper;
 
 import com.adiltestelin.sphere.model.User;
 import com.adiltestelin.sphere.model.dto.RegistrationInputDTO;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.springframework.stereotype.Component;
 
-@Mapper
-public interface UserMapper {
+@Component
+public class UserMapper {
 
-    @Mapping(target = "mail", source = "registrationInputDTO.mail")
-    @Mapping(target = "username", source = "registrationInputDTO.username")
-    @Mapping(target = "password", source = "hashedPassword")
-    User registrationInputDTOtoUser(RegistrationInputDTO registrationInputDTO, String hashedPassword);
+    public User registrationInputDTOtoUser(RegistrationInputDTO registrationInputDTO, String hashedPassword) {
+
+        return User.builder()
+                .mail(registrationInputDTO.mail())
+                .username(registrationInputDTO.username())
+                .password(hashedPassword)
+                .build();
+    }
 }

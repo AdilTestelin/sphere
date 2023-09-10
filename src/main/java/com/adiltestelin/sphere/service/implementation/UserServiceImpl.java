@@ -1,11 +1,14 @@
 package com.adiltestelin.sphere.service.implementation;
 
+import com.adiltestelin.sphere.enums.RoleEnum;
 import com.adiltestelin.sphere.exception.MailAlreadyExistsException;
 import com.adiltestelin.sphere.exception.UsernameAlreadyExistsException;
 import com.adiltestelin.sphere.mapper.UserMapper;
+import com.adiltestelin.sphere.model.Role;
 import com.adiltestelin.sphere.model.User;
 import com.adiltestelin.sphere.model.dto.RegistrationInputDTO;
 import com.adiltestelin.sphere.model.dto.RegistrationOutputDTO;
+import com.adiltestelin.sphere.repository.RoleRepository;
 import com.adiltestelin.sphere.repository.UserRepository;
 import com.adiltestelin.sphere.service.UserService;
 import com.adiltestelin.sphere.util.UserUtil;
@@ -19,6 +22,8 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+
+    private final RoleRepository roleRepository;
 
     private final UserMapper userMapper;
 
@@ -40,7 +45,9 @@ public class UserServiceImpl implements UserService {
 
         final String hashedPassword = userUtil.hashPassword(password);
 
+        final Role userRole = roleRepository.findByName(RoleEnum.USER.name());
         final User user = userMapper.registrationInputDTOtoUser(registrationInputDTO, hashedPassword);
+        user.setRole(userRole);
 
         userRepository.save(user);
     }
