@@ -52,11 +52,11 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-    private boolean checkIfMailExists(String mail) {
+    private Boolean checkIfMailExists(String mail) {
         return userRepository.existsByMail(mail);
     }
 
-    private boolean checkIfUsernameExists(String username) {
+    private Boolean checkIfUsernameExists(String username) {
         return userRepository.existsByUsername(username);
     }
 

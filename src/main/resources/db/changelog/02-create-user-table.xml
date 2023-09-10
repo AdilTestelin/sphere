@@ -4,8 +4,8 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <changeSet id="02-create-user-table" author="AdilTestelin">
-        <createTable tableName="User">
-            <column name="id" type="BIGINT">
+        <createTable tableName="member">
+            <column name="member_id" type="BIGINT">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="username" type="VARCHAR(255)">
@@ -23,10 +23,10 @@
         </createTable>
 
         <addForeignKeyConstraint
-                baseTableName="User"
+                baseTableName="member"
                 baseColumnNames="role_id"
                 constraintName="fk_role_id"
-                referencedTableName="Role"
+                referencedTableName="member_role"
                 referencedColumnNames="id"
         />
     </changeSet>
