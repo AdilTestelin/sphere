@@ -3,8 +3,9 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <include file="changelog/01-create-role-table.xml" relativeToChangelogFile="true"/>
-    <include file="changelog/02-create-user-table.xml" relativeToChangelogFile="true"/>
-    <include file="changelog/03-create-user-sequence.xml" relativeToChangelogFile="true"/>
+    <changeSet id="02-create-user-table" author="AdilTestelin">
+        <createSequence sequenceName="user_id_seq" startValue="1" minValue="1" cacheSize="10"/>
+    </changeSet>
 
 </databaseChangeLog>
+
