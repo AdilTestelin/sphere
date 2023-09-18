@@ -1,7 +1,11 @@
 package com.adiltestelin.sphere.controller;
 
-import com.adiltestelin.sphere.model.dto.RegistrationInputDTO;
-import com.adiltestelin.sphere.service.UserService;
+import com.adiltestelin.sphere.model.dto.AuthenticationRequest;
+import com.adiltestelin.sphere.model.dto.AuthenticationResponse;
+import com.adiltestelin.sphere.model.dto.RegistrationRequest;
+import com.adiltestelin.sphere.model.dto.RegistrationResponse;
+import com.adiltestelin.sphere.service.AuthenticationService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,12 +16,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+    private final AuthenticationService authenticationService;
 
     @PostMapping("/users/register")
-    public ResponseEntity<Void> registerUser(@RequestBody RegistrationInputDTO registrationInputDto) {
-        userService.registerUser(registrationInputDto);
+    public ResponseEntity<RegistrationResponse> registerUser(@RequestBody RegistrationRequest registrationRequest) {
+        final RegistrationResponse response = authenticationService.signUp(registrationRequest);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/users/signin")
+    public ResponseEntity<AuthenticationResponse> authenticateUser(@RequestBody AuthenticationRequest authenticationRequest) {
+        final AuthenticationResponse response = authenticationService.signIn(authenticationRequest);
+
+        return ResponseEntity.ok(response);
+
     }
 }
